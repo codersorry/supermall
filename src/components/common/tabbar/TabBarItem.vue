@@ -1,65 +1,64 @@
 <template>
-    <div class="tab-bar-item" @click="itemClick">
-        <div v-if="!isActive">
-        <slot name="item-icon"></slot>
-        </div>
-        <div v-else>
-        <slot name="item-icon-active"></slot>
-        </div>
-        <div :style="activeStyle">
-        <slot name="item-text"></slot>
-        </div>
-        <!-- <img src="../../assets/img/tabbar/home.svg" alt="">
-        <div>首页</div> -->
+  <div class="tab-bar-item" @click="itemClick">
+    <div v-if="!isActive">
+      <slot name="item-icon"></slot>
     </div>
-</template>>
+    <div v-else>
+      <slot name="item-icon-active"></slot>
+    </div>
+    <div :style="activeStyle">
+      <slot name="item-text"></slot>
+    </div>
+    <!-- <img src="../../assets/img/tabbar/home.svg" alt="">
+    <div>首页</div>-->
+  </div>
+</template>
 
 <script>
 export default {
-    name:'TabBarItem',
-    props:{
-        path:String,
-        activeColor:{
-            type:String,
-            default:'hotpink'
-        }
+  name: "TabBarItem",
+  props: {
+    path: String,
+    activeColor: {
+      type: String,
+      default: "hotpink"
+    }
+  },
+  data() {
+    return {
+      // isActive:false
+    };
+  },
+  methods: {
+    itemClick() {
+      // console.log("items were clicked");
+      this.$router.replace(this.path);
+    }
+  },
+  computed: {
+    isActive() {
+      return this.$route.path.indexOf(this.path) !== -1;
     },
-    data(){
-        return{
-            // isActive:false
-        }
-    },
-    methods: {
-        itemClick(){
-            // console.log("items were clicked");
-            this.$router.replace(this.path)
-        }
-    },
-    computed: {
-        isActive(){
-            return this.$route.path.indexOf(this.path)!==-1
-        },
-        activeStyle(){
-            return this.isActive ? {color:this.activeColor} : {}
-        }
-    },
-}
+    activeStyle() {
+      return this.isActive ? { color: this.activeColor } : {};
+    }
+  }
+};
 </script>
 
 <style scoped>
- .tab-bar-item{
-    flex: 1;
-    text-align: center;
-    height: 49px;
-    font-size: 14px;
-    margin-top: 3px;
-    vertical-align: middle;
-    margin-bottom: 2px;
-  }
+.tab-bar-item {
+  flex: 1;
+  text-align: center;
+  height: 49px;
+  font-size: 14px;
+  margin-top: 3px;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
 
-  .tab-bar-item img{
-      width: 25px;
-      height: 25px;
-  }
-
-</style>>
+.tab-bar-item img {
+  width: 25px;
+  height: 25px;
+}
+</style>
