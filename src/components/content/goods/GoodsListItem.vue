@@ -1,6 +1,7 @@
 <template>
     <div class="goods-item"> 
-        <img :src="goodsItem.show.img" alt="">
+        <!-- vue 中监听标签记载完成 @load="方法名" -->
+        <img :src="goodsItem.show.img" alt="" @load="imageLoad">
         <div class="goods-info">
             <p>{{goodsItem.title}}</p>
             <span class="price">￥{{goodsItem.price}}</span>
@@ -19,7 +20,12 @@ export default {
                 return {}
             }
         }
-    }
+    },
+    methods: {
+        imageLoad(){
+            this.$bus.$emit('itemImageLoad')
+        }
+    },
 }
 </script>
 
