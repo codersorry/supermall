@@ -1,7 +1,7 @@
 <template>
-    <div class="goods-item"> 
+    <div class="goods-item" @click="itemClick"> 
         <!-- vue 中监听标签记载完成 @load="方法名" -->
-        <img :src="goodsItem.show.img" alt="" @load="imageLoad">
+        <img :src="showImage" alt="" @load="imageLoad" >
         <div class="goods-info">
             <p>{{goodsItem.title}}</p>
             <span class="price">￥{{goodsItem.price}}</span>
@@ -21,9 +21,19 @@ export default {
             }
         }
     },
+    computed: {
+        showImage(){
+            return this.goodsItem.image || this.goodsItem.show.img
+        }
+    },
     methods: {
         imageLoad(){
             this.$bus.$emit('itemImageLoad')
+        },
+        itemClick(){
+            // console.log('goods-items 被点击');  
+            //有动态路由和query 2种方式 传递被点击的item 信息 这里用动态路由
+            this.$router.push('/detail/'  + this.goodsItem.iid)
         }
     },
 }

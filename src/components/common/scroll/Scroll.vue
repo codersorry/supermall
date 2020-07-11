@@ -70,6 +70,9 @@ export default {
     //完成下拉操作 以便下一次下拉操作
     finishPullUp(){
       this.scroll && this.scroll.finishPullUp();
+    },
+    getScrollY(){
+      return this.scroll ? this.scroll.y : 0
     }
   }
 };

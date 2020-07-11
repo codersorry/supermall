@@ -39,6 +39,7 @@ import FeatureView from "./childComps/FeatureView";
 
 //导入网络请求的的home.js模块
 import { getHomeMultidata, getHomeGoods } from "network/home.js";
+
 //导入防抖函数
 import { debounce } from "common/utils";
 
@@ -52,7 +53,7 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop
+    BackTop,
   },
   data() {
     return {
@@ -66,7 +67,8 @@ export default {
       currentType: "pop",
       isShowBackTop: false,
       tabOffsetTop: 0,
-      isTabFixed: false
+      isTabFixed: false,
+      saveY:0
     };
   },
   //组件创建完毕后会发送网络请求 请求相关数据
@@ -86,8 +88,16 @@ export default {
       this.$refs.scroll && refresh();
     });
 
-    //获取tabControl 的offsetTop
-    //this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+  },
+  destroyed() {
+    console.log('home destroyed')
+  },
+  activated() {
+    this.$refs.scroll.scrollTo(0, this.saveY, 100)
+    this.$refs.scroll.refresh()
+  },
+  deactivated() {
+    this.saveY = this.$refs.scroll.getScrollY()
   },
   computed: {
     showGoods() {
@@ -143,11 +153,11 @@ export default {
     },
     backClick() {
       // console.log('return top');
-      this.$refs.scroll.scrollTo(0, 0, 500);
+      this.$refs.scroll.scrollTo(0, 0,500);
     },
     contentScroll(position) {
       //1.判断显示和隐藏 backTop 组件
-      this.isShowBackTop = -position.y > 666;
+      this.isShowBackTop = -position.y > 1000;
 
       //2.决定tabControl是否吸顶 (position :fixed)
       this.isTabFixed = -(position.y)> this.tabOffsetTop;
