@@ -1,0 +1,4 @@
+//这个模块用于定义 mutations 里面的常量、
+
+export const ADD_COUNTER = 'add_counter'
+export const ADD_TO_CART = 'add_to_cart'

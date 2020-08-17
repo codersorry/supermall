@@ -66,6 +66,8 @@ export default {
     },
     refresh() {
       this.scroll && this.scroll.refresh();
+      // console.log('Refresh被调用');
+      
     },
     //完成下拉操作 以便下一次下拉操作
     finishPullUp(){
